@@ -10,6 +10,10 @@ let toggledCards = [];
 //increment the move counter and display it on the page (put this functionality in another function that you call from this one)
 let moves = 0;
 
+let clockOff = true;
+
+let time = 0;
+
 //shuffle the list of cards using the provided "shuffle" method below
 
 //selects the css class deck
@@ -27,6 +31,10 @@ const deck = document.querySelector('.deck');
 deck.addEventListener('click', event => {
 	const clickTarget = event.target;
 	if (isClickValid(clickTarget)) {
+			if (clockOff) {
+				startClock();
+				clockOff = false;
+			}
 		//display the card's symbol (put this functionality in another function that you call from this one)
 		toggleCard(clickTarget);
 		//add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
@@ -124,6 +132,13 @@ function hideStar() {
 	}
 }
 
+function startClock () {
+	time = 0;
+	let clockId = setInterval(() => {
+		time++;
+		console.log(time);
+	}, 1000);
+}
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
