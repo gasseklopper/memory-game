@@ -16,7 +16,7 @@ let time = 0;
 
 let clockId;
 let matched = 0;
-const TOTAL_PAIRS = 7;
+const TOTAL_PAIRS = 1;
 
 
 
@@ -32,7 +32,7 @@ const deck = document.querySelector('.deck');
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
+resetGame();
 
 function toggleModal() {
 	const modal = document.querySelector('.modal__background');
@@ -79,6 +79,7 @@ function resetGame() {
 	resetStars();
 	shuffleDeck();
 	resetCards();
+	matched = 0;
 }
 
 function resetClockAndTime() {
