@@ -36,6 +36,7 @@ deck.addEventListener('click', event => {
 			checkForMatch(clickTarget);
 			//increment the move counter and display it on the page (put this functionality in another function that you call from this one)
 			addMove();
+			checkScore();
 		}
 	}
 });
@@ -49,11 +50,11 @@ function addMove() {
 
 
 function shuffleDeck(){
-		const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
-		const shuffledCards = shuffle(cardsToShuffle);
-		for (card of shuffledCards) {
-				deck.appendChild(card);
-		}
+	const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
+	const shuffledCards = shuffle(cardsToShuffle);
+	for (card of shuffledCards) {
+			deck.appendChild(card);
+	}
 }
 shuffleDeck();
 //display the card's symbol (put this functionality in another function that you call from this one)
@@ -75,12 +76,12 @@ function addToggleCard(clickTarget) {
 }
 
 function isClickValid(clickTarget) {
-		return (
-			clickTarget.classList.contains('card') &&
- 			!clickTarget.classList.contains('match') &&
-			toggledCards.length < 2 &&
-			!toggledCards.includes(clickTarget)
-		);
+	return (
+		clickTarget.classList.contains('card') &&
+			!clickTarget.classList.contains('match') &&
+		toggledCards.length < 2 &&
+		!toggledCards.includes(clickTarget)
+	);
 }
 
 
@@ -105,25 +106,45 @@ function checkForMatch() {
 	}
 }
 
+function checkScore() {
+	if (moves === 2 || moves === 4 )
+	{
+		hideStar();
+	}
+}
+
+function hideStar() {
+	const starList = document.querySelectorAll('.stars li');
+	for (star of starList) {
+		if (star.style.display !== 'none')
+		{
+			star.style.display = 'none';
+			break;
+		}
+	}
+}
+
+
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-		var currentIndex = array.length, temporaryValue, randomIndex;
+	var currentIndex = array.length, temporaryValue, randomIndex;
 
-		while (currentIndex !== 0) {
-				randomIndex = Math.floor(Math.random() * currentIndex);
-				currentIndex -= 1;
-				temporaryValue = array[currentIndex];
-				array[currentIndex] = array[randomIndex];
-				array[randomIndex] = temporaryValue;
-		}
+	while (currentIndex !== 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
 
-		return array;
+	return array;
 }
 
 //*    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
 
 
-    //()+ if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+		//()+ if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 
 
 /*
