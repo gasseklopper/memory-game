@@ -21,6 +21,65 @@ body {
 		font-family: 'Coda', cursive;
 }
 
+/*
+ * Styles for the modal
+ */
+.hide {
+	display: none;
+}
+
+.modal__background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.438);
+}
+
+.modal__body {
+	position: relative;
+	width: 400px;
+	/*height: 400px; removed */
+	top: 50%;
+	left: 50%;
+	background: #ffffff;
+	transform: translate(-50%, -70%);
+}
+
+.modal__heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 1.5rem;
+	border-bottom: 1px solid gray;
+}
+
+.modal__close {
+	font-weight: bold;
+	font-size: 2rem;
+}
+
+.modal__stats {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 1rem;
+	border-bottom:  1px solid gray;
+}
+
+.modal__buttons {
+	display: flex;
+	justify-content: space-around;
+	padding: 1rem;
+}
+
+.modal__button {
+	width: 60px;
+	height: 30px;
+}
+
+
 .container {
 		display: flex;
 		justify-content: center;
@@ -68,10 +127,8 @@ h1 {
 }
 
 .deck .card.open {
-		transform: rotateY(0);
 		background: #02b3e4;
 		cursor: default;
-		transform:scale(1);
 		-webkit-transition: .3s ease-in-out;
 		transition: .3s ease-in-out;
 }
@@ -79,7 +136,6 @@ h1 {
 .deck .card.show {
 		transition: width 2s linear 1s;
 		font-size: 33px;
-		transform:scale(1);
 		-webkit-transition: .3s ease-in-out;
 		transition: .3s ease-in-out;
 

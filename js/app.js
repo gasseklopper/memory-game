@@ -15,6 +15,10 @@ let clockOff = true;
 let time = 0;
 
 let clockId;
+let matched = 0;
+const TOTAL_PAIRS = 7;
+
+
 
 
 //shuffle the list of cards using the provided "shuffle" method below
@@ -28,6 +32,74 @@ const deck = document.querySelector('.deck');
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+
+function toggleModal() {
+	const modal = document.querySelector('.modal__background');
+	modal.classList.toggle('hide');
+}
+
+
+
+function writeModalStats(){
+	const timeStat = document.querySelector('.modal__time');
+	const clockTime = document.querySelector('.clock').innerHTML;
+	const moveStat = document.querySelector('.modal__moves');
+	const starsStat = document.querySelector('.modal__stars');
+	const stars = getStars();
+
+	timeStat.innerHTML = `Time = ${clockTime}`;
+	moveStat.innerHTML = `Moves = ${moves}`;
+	starsStat.innerHTML = `Stars = ${stars}`;
+}
+
+function getStars() {
+	stars = document.querySelectorAll('.stars li');
+	starCount = 0;
+	for (star of stars) {
+		if (star.style.display !== 'none') {
+			starCount++;
+		}
+	}
+	console.log(starCount);
+	return starCount;
+}
+
+document.querySelector('.modal__cancel').addEventListener('click', () => {
+	toggleModal();
+});
+
+document.querySelector('.restart').addEventListener('click', resetGame)
+
+document.querySelector('.modal__replay').addEventListener('click', replayGame );
+
+function resetGame() {
+	resetClockAndTime();
+	resetMoves();
+	resetStars();
+	shuffleDeck();
+	resetCards();
+}
+
+function resetClockAndTime() {
+	stopClock();
+	clockOff = true;
+	time = 0;
+	displayTime();
+}
+
+function resetMoves() {
+	moves = 0;
+	document.querySelector('.moves').innerHTML = moves;
+}
+
+function resetStars() {
+	stars = 0;
+	const starList = document.querySelectorAll('.stars li');
+	for (star of starList) {
+		star.style.display = 'inline';
+	}
+}
 
 // set up the event listener for a card. If a card is clicked:
 
@@ -105,6 +177,10 @@ function checkForMatch() {
 		toggleMatchCard(toggledCards[0]);
 		toggleMatchCard(toggledCards[1]);
 		toggledCards = [];
+			matched++;
+			if (matched === TOTAL_PAIRS) {
+				gameOver();
+			}
 	}else{
 		console.log('not a Match!')
 		//setTimeOut is a callback function that runs after the designated time expires.
@@ -113,12 +189,13 @@ function checkForMatch() {
 			toggleCard(toggledCards[0]);
 			toggleCard(toggledCards[1]);
 			toggledCards = [];
+
 		}, 1000);
 	}
 }
 
 function checkScore() {
-	if (moves === 2 || moves === 4 )
+	if (moves === 16 || moves === 24 )
 	{
 		hideStar();
 	}
@@ -162,7 +239,23 @@ function stopClock() {
 	clearInterval(clockId);
 }
 
+function gameOver() {
+	stopClock();
+	writeModalStats();
+	toggleModal();
+}
 
+function replayGame() {
+	resetGame();
+	toggleModal();
+}
+
+function resetCards() {
+	const cards = document.querySelectorAll('.deck li');
+	for (let card of cards) {
+		card.className = 'card';
+	}
+}
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;
