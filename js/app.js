@@ -14,6 +14,9 @@ let clockOff = true;
 
 let time = 0;
 
+let clockId;
+
+
 //shuffle the list of cards using the provided "shuffle" method below
 
 //selects the css class deck
@@ -133,11 +136,30 @@ function hideStar() {
 }
 
 function startClock () {
-	time = 0;
-	let clockId = setInterval(() => {
+		clockId = setInterval(() => {
 		time++;
+		displayTime();
 		console.log(time);
 	}, 1000);
+}
+
+function displayTime() {
+	const clock = document.querySelector('.clock');
+	console.log(clock);
+	clock.innerHTML = time;
+
+	const minutes = Math.floor(time / 60);
+	const seconds = time % 60;
+
+	if (seconds < 10) {
+		clock.innerHTML = `${minutes}:0${seconds}`;
+	} else {
+		clock.innerHTML = `${minutes}:${seconds}`;
+	}
+}
+
+function stopClock() {
+	clearInterval(clockId);
 }
 
 
