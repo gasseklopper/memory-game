@@ -34,92 +34,26 @@ const deck = document.querySelector('.deck');
  */
 resetGame();
 
-function toggleModal() {
-	const modal = document.querySelector('.modal__background');
-	modal.classList.toggle('hide');
-}
 
-
-
-function writeModalStats(){
-	const timeStat = document.querySelector('.modal__time');
-	const clockTime = document.querySelector('.clock').innerHTML;
-	const moveStat = document.querySelector('.modal__moves');
-	const starsStat = document.querySelector('.modal__stars');
-	const stars = getStars();
-
-	timeStat.innerHTML = `Time = ${clockTime}`;
-	moveStat.innerHTML = `Moves = ${moves}`;
-	starsStat.innerHTML = `Stars = ${stars}`;
-}
-
-function getStars() {
-	stars = document.querySelectorAll('.stars li');
-	starCount = 0;
-	for (star of stars) {
-		if (star.style.display !== 'none') {
-			starCount++;
-		}
-	}
-	console.log(starCount);
-	return starCount;
-}
-
-document.querySelector('.modal__cancel').addEventListener('click', () => {
-	toggleModal();
-});
-
-document.querySelector('.restart').addEventListener('click', resetGame)
-
-document.querySelector('.modal__replay').addEventListener('click', replayGame );
-
-function resetGame() {
-	resetClockAndTime();
-	resetMoves();
-	resetStars();
-	shuffleDeck();
-	resetCards();
-	matched = 0;
-}
-
-function resetClockAndTime() {
-	stopClock();
-	clockOff = true;
-	time = 0;
-	displayTime();
-}
-
-function resetMoves() {
-	moves = 0;
-	document.querySelector('.moves').innerHTML = moves;
-}
-
-function resetStars() {
-	stars = 0;
-	const starList = document.querySelectorAll('.stars li');
-	for (star of starList) {
-		star.style.display = 'inline';
-	}
-}
 
 // set up the event listener for a card. If a card is clicked:
 
 deck.addEventListener('click', event => {
 	const clickTarget = event.target;
 	if (isClickValid(clickTarget)) {
-			if (clockOff) {
-				startClock();
-				clockOff = false;
-			}
+		if (clockOff) {
+			startClock();
+			clockOff = false;
+		}
 		//display the card's symbol (put this functionality in another function that you call from this one)
 		toggleCard(clickTarget);
 		//add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
 		addToggleCard(clickTarget);
 		//if the list already has another card, check to see if the two cards match
 		if (toggledCards.length === 2) {
+			addMove();
 			checkForMatch(clickTarget);
 			//increment the move counter and display it on the page (put this functionality in another function that you call from this one)
-			addMove();
 			checkScore();
 		}
 	}
@@ -137,10 +71,9 @@ function shuffleDeck(){
 	const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
 	const shuffledCards = shuffle(cardsToShuffle);
 	for (card of shuffledCards) {
-			deck.appendChild(card);
+		deck.appendChild(card);
 	}
 }
-shuffleDeck();
 //display the card's symbol (put this functionality in another function that you call from this one)
 // toogle css open and show class
 function toggleCard(clickTarget) {
@@ -178,10 +111,11 @@ function checkForMatch() {
 		toggleMatchCard(toggledCards[0]);
 		toggleMatchCard(toggledCards[1]);
 		toggledCards = [];
-			matched++;
-			if (matched === TOTAL_PAIRS) {
-				gameOver();
-			}
+		matched++;
+
+		if (matched === TOTAL_PAIRS) {
+			gameOver();
+		}
 	}else{
 		console.log('not a Match!')
 		//setTimeOut is a callback function that runs after the designated time expires.
@@ -190,8 +124,8 @@ function checkForMatch() {
 			toggleCard(toggledCards[0]);
 			toggleCard(toggledCards[1]);
 			toggledCards = [];
-
 		}, 1000);
+
 	}
 }
 
@@ -255,6 +189,76 @@ function resetCards() {
 	const cards = document.querySelectorAll('.deck li');
 	for (let card of cards) {
 		card.className = 'card';
+	}
+}
+
+function writeModalStats(){
+	const timeStat = document.querySelector('.modal__time');
+	const clockTime = document.querySelector('.clock').innerHTML;
+	const moveStat = document.querySelector('.modal__moves');
+	const starsStat = document.querySelector('.modal__stars');
+	const stars = getStars();
+
+	timeStat.innerHTML = `Time = ${clockTime}`;
+	moveStat.innerHTML = `Moves = ${moves}`;
+	starsStat.innerHTML = `Stars = ${stars}`;
+}
+
+function toggleModal() {
+	const modal = document.querySelector('.modal__background');
+	modal.classList.toggle('hide');
+}
+
+
+
+
+
+function getStars() {
+	stars = document.querySelectorAll('.stars li');
+	starCount = 0;
+	for (star of stars) {
+		if (star.style.display !== 'none') {
+			starCount++;
+		}
+	}
+	console.log(starCount);
+	return starCount;
+}
+
+document.querySelector('.modal__cancel').addEventListener('click', () => {
+	toggleModal();
+});
+
+document.querySelector('.restart').addEventListener('click', resetGame)
+
+document.querySelector('.modal__replay').addEventListener('click', replayGame );
+
+function resetGame() {
+	resetClockAndTime();
+	resetMoves();
+	resetStars();
+	shuffleDeck();
+	resetCards();
+	matched = 0;
+}
+
+function resetClockAndTime() {
+	stopClock();
+	clockOff = true;
+	time = 0;
+	displayTime();
+}
+
+function resetMoves() {
+	moves = 0;
+	document.querySelector('.moves').innerHTML = moves;
+}
+
+function resetStars() {
+	stars = 0;
+	const starList = document.querySelectorAll('.stars li');
+	for (star of starList) {
+		star.style.display = 'inline';
 	}
 }
 // Shuffle function from http://stackoverflow.com/a/2450976
