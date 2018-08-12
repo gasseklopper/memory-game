@@ -3,7 +3,9 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
+
 * [Contributing](#contributing)
+
 
 ## Instructions
 
@@ -18,3 +20,19 @@ For specific, detailed instructions, look at the project instructions in the [Ud
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Added Funcionalty
+
+* added JavaScript functionallty to the Project
+* added html and css to the Project
+
+# Memory Game
+A Frontend Developer Projekt from udacity
+
+Just click the boxes to flip cards, if two fliped cards are matched , it will be filped. Otherwhiise the cards toggle back.
+
+Your moves should be as low as possible to match all pairs of cards, than you will get a score for your results in a modal
+
+# How to play
+
+Click [Here](https://gasseklopper.github.io/memory-game/)
