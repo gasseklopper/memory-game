@@ -8,9 +8,9 @@
 
 * [Added Funcionalty](#added_funcionalty)
 
-* [Memory Game](#memory)
+* [Memory Game](#memory_game)
 
-* [How to play](#how)
+* [How to play](#how_to_play)
 
 ## Instructions
 
@@ -31,13 +31,13 @@ For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 * added JavaScript functionallty to the Project
 * added html and css to the Project
 
-# Memory Game
+# Memory_Game
 A Frontend Developer Projekt from udacity
 
 Just click the boxes to flip cards, if two fliped cards are matched , it will be filped. Otherwhiise the cards toggle back.
 
 Your moves should be as low as possible to match all pairs of cards, than you will get a score for your results in a modal
 
-# How to play
+# How_to_play
 
 Click [Here](https://gasseklopper.github.io/memory-game/)
