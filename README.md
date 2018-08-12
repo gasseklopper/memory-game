@@ -6,11 +6,11 @@
 
 * [Contributing](#contributing)
 
-* [Added Funcionalty]()
+* [Added Funcionalty](#added_funcionalty)
 
-* [Memory Game]()
+* [Memory Game](#memory)
 
-* [How to play]()
+* [How to play](#how)
 
 ## Instructions
 
@@ -26,7 +26,7 @@ This repository is the starter code for _all_ Udacity students. Therefore, we mo
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Added Funcionalty
+## Added_Funcionalty
 
 * added JavaScript functionallty to the Project
 * added html and css to the Project
