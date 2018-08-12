@@ -258,6 +258,7 @@ function resetGame() {
 	shuffleDeck();
 	resetCards();
 	matched = 0;
+	toggledCards = [];
 }
 
 // reset the variables time, change bolean value vor clockOff call stopClock and displayTime
