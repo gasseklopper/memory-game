@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-// object list with the card symbol icons
+// object list with the cards named by symbol icons
 
 let objects = ['diamond','paper-plane-o','anchor','bolt','cube','leaf','bicycle','bomb','cube', 'diamond','paper-plane-o','anchor','bolt','cube','leaf','bicycle','bomb','cube',]
 //array to store toggled cards to compare them or control status
@@ -10,18 +10,20 @@ let toggledCards = [];
 //increment the move counter and display it on the page (put this functionality in another function that you call from this one)
 let moves = 0;
 
+// Clock bolean
 let clockOff = true;
 
+// time declares a block scope local variable
 let time = 0;
 
+// clockId declares a block scope local variable
 let clockId;
+
+// declares a block scope local variable
 let matched = 0;
-const TOTAL_PAIRS = 1;
 
-
-
-
-//shuffle the list of cards using the provided "shuffle" method below
+//declares a const with the max matches in the game
+const TOTAL_PAIRS = 8;
 
 //selects the css class deck
 const deck = document.querySelector('.deck');
@@ -32,12 +34,13 @@ const deck = document.querySelector('.deck');
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+// reset the game with different functions resetClockAndTime() resetMoves()  resetStars() shuffleDeck() resetCards() matched = 0;
 resetGame();
 
 
 
 // set up the event listener for a card. If a card is clicked:
-
 deck.addEventListener('click', event => {
 	const clickTarget = event.target;
 	if (isClickValid(clickTarget)) {
@@ -66,7 +69,7 @@ function addMove() {
 	movesText.innerHTML = moves;
 }
 
-
+// use the shuffle function to shuffle the array from returning .deck li
 function shuffleDeck(){
 	const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
 	const shuffledCards = shuffle(cardsToShuffle);
@@ -74,6 +77,7 @@ function shuffleDeck(){
 		deck.appendChild(card);
 	}
 }
+
 //display the card's symbol (put this functionality in another function that you call from this one)
 // toogle css open and show class
 function toggleCard(clickTarget) {
@@ -92,6 +96,7 @@ function addToggleCard(clickTarget) {
 	toggledCards.push(clickTarget);
 }
 
+// checks if the click is valid
 function isClickValid(clickTarget) {
 	return (
 		clickTarget.classList.contains('card') &&
@@ -112,12 +117,13 @@ function checkForMatch() {
 		toggleMatchCard(toggledCards[1]);
 		toggledCards = [];
 		matched++;
-
-		if (matched === TOTAL_PAIRS) {
-			gameOver();
-		}
+		// stop the game if  TOTAL_PAIRS reached with a timeout of 1000
+		setTimeout(() => {
+			if (matched === TOTAL_PAIRS) {
+				gameOver();
+			}
+		}, 1000);
 	}else{
-		console.log('not a Match!')
 		//setTimeOut is a callback function that runs after the designated time expires.
 		setTimeout(() => {
 			// if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
@@ -129,6 +135,7 @@ function checkForMatch() {
 	}
 }
 
+// function for controlling the stars by var moves
 function checkScore() {
 	if (moves === 16 || moves === 24 )
 	{
@@ -136,6 +143,7 @@ function checkScore() {
 	}
 }
 
+// hide star function ends with a break so if  function called hide one ".stars li" css class
 function hideStar() {
 	const starList = document.querySelectorAll('.stars li');
 	for (star of starList) {
@@ -147,17 +155,17 @@ function hideStar() {
 	}
 }
 
+// startClock starts an interval which is increamentet by time++ for each call
 function startClock () {
 		clockId = setInterval(() => {
 		time++;
 		displayTime();
-		console.log(time);
 	}, 1000);
 }
 
+// function to select css class .clock and change innerHTML with var time which is calulated
 function displayTime() {
 	const clock = document.querySelector('.clock');
-	console.log(clock);
 	clock.innerHTML = time;
 
 	const minutes = Math.floor(time / 60);
@@ -170,21 +178,25 @@ function displayTime() {
 	}
 }
 
+// function to clearInterval clockId variable
 function stopClock() {
 	clearInterval(clockId);
 }
 
+// game over is called if u complete the game this is reached if const Total_PAIRS is reached. then stop clock. write let variables to the modal and toggle it on screen
 function gameOver() {
 	stopClock();
 	writeModalStats();
 	toggleModal();
 }
 
+// function replaygame opens reset game an toggle Modal
 function replayGame() {
 	resetGame();
 	toggleModal();
 }
 
+// function resetCards selects css class .deck li  and for each it resets the className to 'card'
 function resetCards() {
 	const cards = document.querySelectorAll('.deck li');
 	for (let card of cards) {
@@ -192,27 +204,25 @@ function resetCards() {
 	}
 }
 
+// selector for css classes to write variables to the modal HTML
 function writeModalStats(){
 	const timeStat = document.querySelector('.modal__time');
 	const clockTime = document.querySelector('.clock').innerHTML;
 	const moveStat = document.querySelector('.modal__moves');
 	const starsStat = document.querySelector('.modal__stars');
 	const stars = getStars();
-
 	timeStat.innerHTML = `Time = ${clockTime}`;
 	moveStat.innerHTML = `Moves = ${moves}`;
 	starsStat.innerHTML = `Stars = ${stars}`;
 }
 
+// ToggleModal function toggle css class of modal__background
 function toggleModal() {
 	const modal = document.querySelector('.modal__background');
 	modal.classList.toggle('hide');
 }
 
-
-
-
-
+// getStars function counts and returns css class of .stars li with the style display:none
 function getStars() {
 	stars = document.querySelectorAll('.stars li');
 	starCount = 0;
@@ -221,18 +231,26 @@ function getStars() {
 			starCount++;
 		}
 	}
-	console.log(starCount);
 	return starCount;
 }
 
+
+
+// RESET AND REPLAY functions
+// selector for css class .modal__cancel and addEventListener click toggleModal here u can add more functions calls with this arrow function
 document.querySelector('.modal__cancel').addEventListener('click', () => {
 	toggleModal();
 });
-
+// selector for css class .restart and addEventListener click resetgame
 document.querySelector('.restart').addEventListener('click', resetGame)
 
+// selector for css class .modal__replay and addEventListener click replaygame
 document.querySelector('.modal__replay').addEventListener('click', replayGame );
 
+// selector for css class .modal__close and addEventListener click toggleModal
+document.querySelector('.modal__close').addEventListener('click', toggleModal );
+
+// reset the game with different functions resetClockAndTime() resetMoves()  resetStars() shuffleDeck() resetCards() matched = 0;
 function resetGame() {
 	resetClockAndTime();
 	resetMoves();
@@ -242,6 +260,7 @@ function resetGame() {
 	matched = 0;
 }
 
+// reset the variables time, change bolean value vor clockOff call stopClock and displayTime
 function resetClockAndTime() {
 	stopClock();
 	clockOff = true;
@@ -249,11 +268,13 @@ function resetClockAndTime() {
 	displayTime();
 }
 
+// reset the moves and write it to the innerHTML of class .moves
 function resetMoves() {
 	moves = 0;
 	document.querySelector('.moves').innerHTML = moves;
 }
 
+// reset the stars with a querySelectorAll at .stars li and change style to display:inline instead of display:none
 function resetStars() {
 	stars = 0;
 	const starList = document.querySelectorAll('.stars li');
@@ -272,23 +293,5 @@ function shuffle(array) {
 		array[currentIndex] = array[randomIndex];
 		array[randomIndex] = temporaryValue;
 	}
-
 	return array;
 }
-
-//*    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
-
-
-		//()+ if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
