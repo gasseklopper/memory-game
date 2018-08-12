@@ -6,7 +6,7 @@
 
 * [Contributing](#contributing)
 
-* [Added Funcionalty](#added)
+* [Added Funcionalty](#Added Funcionalty)
 
 * [Memory Game](#memory)
 
