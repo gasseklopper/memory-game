@@ -6,6 +6,11 @@
 
 * [Contributing](#contributing)
 
+* [Added Funcionalty](#added funcionalty)
+
+* [Memory Game](#memory game)
+
+* [How to play](#how to play)
 
 ## Instructions
 
